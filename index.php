@@ -17,7 +17,7 @@
         ],
         [
             'name' => 'Hotel Rivamare',
-            'description' => 'With stunning sea views, this hotel enchants guests with its coastal charm and impeccable service.',
+            'description' => "With stunning sea views, this hotel enchants guests with its coastal charm and impeccable service. It's also famous for its fish-based dishes.",
             'parking' => false,
             'vote' => 1,
             'distance_to_center' => 1
@@ -42,7 +42,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,59 +91,56 @@
     *********** END OF COMMENT ********  -->
 
     
-<div class="container-fluid mt-5">
-
+    <div class="container-fluid mt-5">
     <div class="row gap-5">
-        <div class="col-3 offset-3 border text-center">
+        <div class="col-6 offset-3 border text-center">
             <form method="GET">
-                <h5>Does it have a parking lot?</h5>
-                <div class="d-flex gap-3 align-items-center justify-content-center ">
+                <h5 class="mb-5">Filter by parking lot and/or minimum rating</h5>
+                <div class="d-flex gap-3 align-items-center justify-content-center">
+                    <span>Does it have a parking lot?</span>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="parking" id="parking_yes" value="yes">
                         <label class="form-check-label" for="parking_yes"> Yes </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="parking" id="parking_no" value="no">
-                        <label class="form-check-label" for="parking_no"> No </label>
+                        <label class="form-check-label" for="parking_no"> No</label>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-success my-3">Filter</button>
-            </form>
-        </div>
-        <div class="col-3 border text-center">
-            <form method="GET">
-                <h5>Filter by rating</h5>
-                <div class="d-flex gap-3 align-items-center justify-content-center ">
-                    
+                    <div class="form-group pb-4">
+                        <label for="vote">Minimum Vote:</label>
+                        <input type="number" class="form-control" id="vote" name="vote" min="1" max="5">
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success my-3">Filter</button>
             </form>
         </div>
     </div>
 
-
     <div class="row d-flex justify-content-center align-items-center">
+        
         <?php 
-        // Created function to check if a hotel should be displayed based on parking filter
-        function displayHotel($hotel, $filter) {
-            if($filter == 'yes' && !$hotel['parking']) {
+        function displayHotel($hotel, $filterParking, $filterVote) {
+            if($filterParking == 'yes' && !$hotel['parking']) {
                 return false;
             }
-            if($filter == 'no' && $hotel['parking']) {
+            if($filterParking == 'no' && $hotel['parking']) {
+                return false;
+            }
+            if($filterVote !== null && $hotel['vote'] < $filterVote){
                 return false;
             }
             return true;
         }
-
-        // Created function to check if a hotel should be displayed based on rating filter
         
-        // Apply filter if submitted
-        $filter = isset($_GET['parking']) ? $_GET['parking'] : null;
+        // Only applies filter if submitted
+
+        $filterParking = isset($_GET['parking']) ? $_GET['parking'] : null;
+        $filterVote = isset($_GET['vote']) ? $_GET['vote'] : null;
         ?>
         <?php foreach($hotels as $hotel): ?>
-            <?php if (!$filter || displayHotel($hotel, $filter)): ?>
+            <?php if (displayHotel($hotel, $filterParking, $filterVote)): ?>
             <div class="col-2 mt-4">
-                <div class="card">
+                <div class="card  d-flex flex-column justify-content-center text-center align-items-center">
                     <div class="card-body">
                         <h5 class="card-title"><?= $hotel['name'] ?></h5>
                         <p class="card-text"><?= $hotel['description'] ?></p>
@@ -156,6 +153,7 @@
             <?php endif ?>
         <?php endforeach ?>
     </div>
+</div>
     <div class="d-flex justify-content-center mt-5">
         <button class="btn btn-outline-danger"  id="btn-reset">
             <a href="http://localhost:8888/php-hotel">Reset</a>
