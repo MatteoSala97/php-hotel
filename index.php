@@ -46,7 +46,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="3">
+    <meta http-equiv="refresh" content="2">
     <title>PHP Hotels</title>
 
     <!-- Boostrap CSS -->
@@ -59,9 +59,18 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <header>
+        <div class="text-center ">
+            <h1>List of Hotels using PHP</h1>
+        </div>
+    </header>
+
+<!-- ******** COMMENTED SECTION - THIS WAS THE FIRST COMMIT ******
+
     <div class="container mt-5">
+        
         <?php
-            // echo '<pre>';  print_r($hotels); echo '</pre>'
+            echo '<pre>';  print_r($hotels); echo '</pre>'
         ?>
         <ul>
             <?php foreach($hotels as $element): ?>
@@ -73,8 +82,60 @@
                 <?= $element['distance_to_center'] ?> km
             </li>
             <?php endforeach ?>
-        </ul>
+        </ul> 
     </div>
+
+    *********** END OF COMMENT ********  -->
+
     
+
+    <div class="container-fluid mt-5">
+
+    <div class="row gap-5">
+        <div class="col-3 offset-3 border text-center">
+            <form method="GET">
+                <h5>Does it have a parking lot?</h5>
+                <div class="d-flex gap-3 align-items-center justify-content-center ">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="parking" id="parking_yes" value="yes">
+                        <label class="form-check-label" for="parking_yes"> Yes </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="parking" id="parking_no" value="no">
+                        <label class="form-check-label" for="parking_no"> No</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Filter</button>
+            </form>
+        </div>
+        <div class="col-3 border text-center">
+            <form method="GET">
+                <h5>Filter by rating</h5>
+                <div class="d-flex gap-3 align-items-center justify-content-center ">
+                    
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Filter</button>
+            </form>
+        </div>
+    </div>
+
+
+        <div class="row d-flex justify-content-center align-items-center">
+            <?php foreach($hotels as $hotel): ?>
+            <?php ?>   
+            <div class="col-2 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $hotel['name'] ?></h5>
+                        <p class="card-text"><?= $hotel['description'] ?></p>
+                        <p class="card-text">Parking: <?= $hotel['parking'] ? 'Yes' : 'No' ?></p>
+                        <p class="card-text">Vote: <?= $hotel['vote'] ?></p>
+                        <p class="card-text">Distance to center: <?= $hotel['distance_to_center'] ?> km</p>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach ?>
+        </div>
+    </div>
 </body>
 </html>
