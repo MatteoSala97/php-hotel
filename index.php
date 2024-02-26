@@ -93,7 +93,7 @@
     
     <div class="container-fluid mt-5">
     <div class="row gap-5">
-        <div class="col-6 offset-3 border text-center">
+        <div class="col-xl-6 offset-3 border text-center">
             <form method="GET">
                 <h5 class="mb-5">Filter by parking lot and/or minimum rating</h5>
                 <div class="d-flex gap-3 align-items-center justify-content-center">
@@ -139,7 +139,7 @@
         ?>
         <?php foreach($hotels as $hotel): ?>
             <?php if (displayHotel($hotel, $filterParking, $filterVote)): ?>
-            <div class="col-2 mt-4">
+            <div class="col-xl-2 col-sm-12 mt-4">
                 <div class="card  d-flex flex-column justify-content-center text-center align-items-center">
                     <div class="card-body">
                         <h5 class="card-title"><?= $hotel['name'] ?></h5>
