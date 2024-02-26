@@ -93,7 +93,7 @@
     
     <div class="container-fluid mt-5">
     <div class="row gap-5">
-        <div class="col-xl-6 offset-3 border text-center">
+        <div class="col-12 border text-center">
             <form method="GET">
                 <h5 class="mb-5">Filter by parking lot and/or minimum rating</h5>
                 <div class="d-flex gap-3 align-items-center justify-content-center">
